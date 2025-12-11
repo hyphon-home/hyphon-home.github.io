@@ -1,2 +1,2 @@
-# hyphon-home.github.io
-Hyphon
+# The website is https://hyphon-home.github.io
+A launcher for all Hyphon
