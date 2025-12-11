@@ -64,6 +64,46 @@
   body.started{background:#ffffff}
   body.started .wrap{opacity:0; transform:translateY(-6px)}
   body.started .btn{opacity:0; transform:translateX(-50%) scale(0.98)}
+  .options{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity 450ms ease 300ms, transform 450ms ease 300ms;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%) translateY(20px);
+  }
+  body.started .options{
+    opacity:1;
+    transform:translate(-50%, -50%) translateY(0);
+  }
+  .tile{
+    width:180px;
+    height:100px;
+    background:linear-gradient(180deg,var(--accent1) 0%,var(--accent2) 100%);
+    border-radius:14px;
+    box-shadow: 0 10px 30px rgba(2,40,90,0.25), inset 0 1px 0 rgba(255,255,255,0.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:transform 180ms ease, box-shadow 180ms ease;
+    backdrop-filter: blur(4px);
+  }
+  .tile:hover{box-shadow:0 14px 40px rgba(2,40,90,0.32); transform:scale(1.02)}
+  .tile:active{transform:scale(0.98)}
+  .tile:focus{outline:3px solid rgba(255,255,255,0.12); outline-offset:4px}
+  .tile-text{
+    color:var(--btn-text);
+    font-weight:600;
+    font-size:24px;
+    letter-spacing:0.6px;
+  }
 </style>
 </head>
 <body>
@@ -71,12 +111,31 @@
     <h1 class="title">Hyphon</h1>
   </div>
   <button id="startBtn" class="btn" aria-label="get started">Get started</button>
+  <div class="options" aria-hidden="true">
+    <div class="tile" data-file="skip.html">
+      <span class="tile-text">Skip</span>
+    </div>
+    <div class="tile" data-file="stream.html">
+      <span class="tile-text">STREAM</span>
+    </div>
+    <div class="tile" data-file="chat.html">
+      <span class="tile-text">Chat</span>
+    </div>
+  </div>
 <script>
   (function(){
     var btn=document.getElementById('startBtn');
     btn.addEventListener('click',function(){
       document.body.classList.add('started');
     },{passive:true});
+    
+    var tiles = document.querySelectorAll('.tile');
+    tiles.forEach(function(tile){
+      tile.addEventListener('click', function(){
+        var file = this.getAttribute('data-file');
+        window.location.href = file;
+      });
+    });
   })();
 </script>
 </body>
